@@ -1,5 +1,7 @@
 import React from "react";
 
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 import SearchBox from "../../components/search-box/search-box.component";
 import BooksDisplay from "../../components/books-display/books-display.component";
 
@@ -11,7 +13,8 @@ class SearchPage extends React.Component {
 
     this.state = {
       text: "",
-      books: []
+      books: [],
+      visibility: "hidden"
     };
   }
 
@@ -20,7 +23,20 @@ class SearchPage extends React.Component {
     this.setState({ text: value });
   };
 
+  searchMode = () => {
+    // eslint-disable-next-line default-case
+    switch (this.state.visibility) {
+      case "hidden":
+        this.setState({ visibility: "visible" });
+        break;
+      case "visible":
+        this.setState({ visibility: "hidden" });
+        break;
+    }
+  };
+
   fetchData = () => {
+    this.searchMode();
     this.setState({ text: "" });
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.state.text}`)
       .then(result => result.json())
@@ -44,12 +60,14 @@ class SearchPage extends React.Component {
             };
 
             this.setState({ books: [...this.state.books, book] });
-          }
+          },
+          this.searchMode()
         );
       });
   };
 
   render() {
+    const { visibility } = this.state;
     return (
       <div className="container">
         <SearchBox
@@ -57,6 +75,7 @@ class SearchPage extends React.Component {
           handleSubmit={this.fetchData}
           value={this.state.text}
         />
+        <CircularProgress style={{ visibility: `${visibility}` }} />
         <BooksDisplay books={this.state.books} />
       </div>
     );
