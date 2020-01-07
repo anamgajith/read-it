@@ -1,0 +1,22 @@
+.card-list {
+  width: 85%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 15px;
+  margin: 25px 0;
+}
+
+@media only screen and (max-width: 1024px) {
+  .card-list {
+    width: 90%;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .card-list {
+    width: 95%;
+    grid-template-columns: 1fr;
+  }
+}
