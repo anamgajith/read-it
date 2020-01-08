@@ -1,0 +1,30 @@
+.main-signin {
+  width: 320px;
+  height: 100%;
+  display: block;
+  padding: 10px;
+  margin: 0 auto;
+
+  .signin-container {
+    margin-top: 55px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100% !important;
+  }
+
+  .full {
+    width: 100% !important;
+    margin: 10px 0;
+  }
+
+  .lock {
+    background-color: #e91e63;
+    padding: 15px;
+    border-radius: 50%;
+  }
+
+  .signin-text {
+    margin: 25px 0;
+  }
+}

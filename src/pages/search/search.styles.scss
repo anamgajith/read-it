@@ -1,3 +1,15 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+.main{
+  width: 100%;
+  height: 100%;
+  background-image: url(https://cdn.hipwallpaper.com/m/9/62/o1HZ26.jpg);
+  background-size: cover;
+  overflow: scroll;
+}
+
 .container {
   display: flex;
   height: 100vh;

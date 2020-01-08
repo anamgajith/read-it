@@ -4,7 +4,8 @@
   width: 281px;
   height: 134px;
   border: 1px solid grey;
-  background-color: #f5f5f5;
+  background-image: url(https://i.pinimg.com/originals/d6/07/72/d607724b1fa1e366b8d9e075728282da.jpg);
+  background-size: cover;
   border-radius: 5px;
   padding: 10px;
   cursor: pointer;
@@ -35,7 +36,7 @@
 
     .author {
       font-size: 8px;
-      line-height: 0px;
+      margin: 0;
     }
 
     .title {

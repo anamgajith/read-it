@@ -69,14 +69,16 @@ class SearchPage extends React.Component {
   render() {
     const { visibility } = this.state;
     return (
-      <div className="container">
-        <SearchBox
-          handleChange={this.handleChange}
-          handleSubmit={this.fetchData}
-          value={this.state.text}
-        />
-        <CircularProgress style={{ visibility: `${visibility}` }} />
-        <BooksDisplay books={this.state.books} />
+      <div className="main">
+        <div className="container">
+          <SearchBox
+            handleChange={this.handleChange}
+            handleSubmit={this.fetchData}
+            value={this.state.text}
+          />
+          <CircularProgress style={{ visibility: `${visibility}` }} />
+          <BooksDisplay books={this.state.books} buttonText="Add to wishlist" />
+        </div>
       </div>
     );
   }

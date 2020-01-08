@@ -2,19 +2,27 @@ import React from "react";
 import "./book-item.styles.scss";
 import Button from "@material-ui/core/Button";
 
-const BookItem = ({ title, authors, pageCount, description, thumbnail }) => {
+const BookItem = ({
+  title,
+  authors,
+  pageCount,
+  description,
+  thumbnail,
+  buttonText
+}) => {
   return (
     <div className="card-container">
-      <img
-        src={thumbnail}
-        alt="cover"
-      />
+      <img src={thumbnail} alt="cover" />
       <div className="content">
-        <p className="author">Tripati</p>
+        <p className="author">
+          {authors.map((name,index) => (
+            <span key={index}>{`${name},`}</span>
+          ))}
+        </p>
         <p className="title">{title}</p>
         <p className="description">{description}</p>
         <Button className="button" variant="outlined">
-          Add to wishlist
+          {buttonText}
         </Button>
       </div>
     </div>
