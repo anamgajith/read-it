@@ -1,22 +1,22 @@
 import React from "react";
-import "./signin.styles.scss";
-import TextField from "@material-ui/core/TextField";
-import GoogleButton from "react-google-button";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import { signInWithGoogle } from "../../firebase/firebase.utils";
 
 import LockIcon from "../../components/auth-head/lock-icon.component";
 
-export default class SignIn extends React.Component {
-  constructor(props) {
-    super(props);
+import "./signup.styles.scss";
+
+export default class SignUp extends React.Component {
+  constructor() {
+    super();
 
     this.state = {
+      name: "",
       email: "",
       password: "",
-      error: ""
+      confirmPassword: ""
     };
   }
 
@@ -26,19 +26,28 @@ export default class SignIn extends React.Component {
   };
 
   render() {
-    const { email, password, error } = this.state;
     return (
       <div className="main-signin">
         <form className="signin-container">
           <LockIcon />
           <Typography className="signin-text" component="h1" variant="h5">
-            Sign in
+            Sign Up
           </Typography>
+          <TextField
+            className="full"
+            type="text"
+            name="name"
+            value={this.state.name}
+            onChange={this.handleChange}
+            label="Display Name"
+            variant="outlined"
+            required
+          />
           <TextField
             className="full"
             type="email"
             name="email"
-            value={email}
+            value={this.state.email}
             onChange={this.handleChange}
             label="Email adress"
             variant="outlined"
@@ -48,25 +57,33 @@ export default class SignIn extends React.Component {
             className="full"
             type="password"
             name="password"
-            value={password}
+            value={this.state.password}
             onChange={this.handleChange}
             label="Password"
             variant="outlined"
-            helperText={error}
             required
           />
-          <GoogleButton className="full" onClick={signInWithGoogle} />
+          <TextField
+            className="full"
+            type="password"
+            name="confirmPassword"
+            value={this.state.confirmPassword}
+            onChange={this.handleChange}
+            label="Confirm Password"
+            variant="outlined"
+            required
+          />
           <Button
             className="full"
             type="submit"
             variant="contained"
             color="primary"
           >
-            SIGN IN
+            SIGN UP
           </Button>
         </form>
-        <Link className="link-to" to="/signup">
-          Don't have an account ? Sign Up
+        <Link className="link-to" to="/signin">
+          Already have an account ? Sign In
         </Link>
       </div>
     );

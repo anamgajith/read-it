@@ -4,7 +4,7 @@ import NavTabs from "../../components/tab-panel/tab-panel.component";
 
 const DashBoard = () => (
     <div>
-        <NavTabs/>
+        <NavTabs className="nav-tab"/>
     </div>
 );
 

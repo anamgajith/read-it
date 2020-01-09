@@ -1,3 +1,16 @@
+body {
+  user-select: none !important;
+  font-family: "Open Sans Condensed";
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none !important;
+}
+
 .App {
   text-align: center;
 }

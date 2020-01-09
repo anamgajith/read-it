@@ -6,6 +6,8 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import SearchPage from "../../pages/search/search.component.jsx";
+import "./tab-panel.styles.scss";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,7 +55,7 @@ export default function NavTabs() {
   };
 
   return (
-    <div className={classes.root}>
+    <div className="tab-main">
       <Paper className={classes.root}>
         <Tabs
           value={value}
@@ -68,7 +70,7 @@ export default function NavTabs() {
         </Tabs>
       </Paper>
       <TabPanel value={value} index={0}>
-        WISHLIST
+        WHISHLIST
       </TabPanel>
       <TabPanel value={value} index={1}>
         READING
