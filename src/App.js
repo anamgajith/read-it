@@ -42,25 +42,21 @@ class App extends React.Component {
             exact
             path="/search"
             render={() =>
-              this.props.currentUser ? (
-                <SearchPage />
-              ) : (
-                <Redirect to="/signin" />
-              )
+              this.props.currentUser ? <SearchPage /> : <DashBoard/>
             }
           />
           <Route
             exact
             path="/signin"
             render={() =>
-              this.props.currentUser ? <Redirect to="/dashboard"/> : <SignIn />
+              this.props.currentUser ? <Redirect to="/dashboard" /> : <SignIn />
             }
           />
           <Route
             exact
             path="/signup"
             render={() =>
-              this.props.currentUser ? <Redirect to="/dashboard"/> : <SignUp />
+              this.props.currentUser ? <Redirect to="/dashboard" /> : <SignUp />
             }
           />
         </Switch>

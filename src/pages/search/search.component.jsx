@@ -5,11 +5,14 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import SearchBox from "../../components/search-box/search-box.component";
 import BooksDisplay from "../../components/books-display/books-display.component";
 
+import { connect } from "react-redux";
+import { addItem } from "../../redux/books/books.actions";
+
 import "./search.styles.scss";
 
 class SearchPage extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       text: "",
@@ -56,7 +59,8 @@ class SearchPage extends React.Component {
               authors,
               pageCount,
               description,
-              thumbnail
+              thumbnail,
+              status: "pending"
             };
 
             this.setState({ books: [...this.state.books, book] });
@@ -77,11 +81,19 @@ class SearchPage extends React.Component {
             value={this.state.text}
           />
           <CircularProgress style={{ visibility: `${visibility}` }} />
-          <BooksDisplay books={this.state.books} buttonText="Add to wishlist" />
+          <BooksDisplay
+            books={this.state.books}
+            buttonText="Add to wishlist"
+            action={this.props.addItem}
+          />
         </div>
       </div>
     );
   }
 }
 
-export default SearchPage;
+const mapDispatchToProps = dispatch => ({
+  addItem: item => dispatch(addItem(item))
+});
+
+export default connect(null, mapDispatchToProps)(SearchPage);

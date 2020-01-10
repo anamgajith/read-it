@@ -4,16 +4,21 @@ import BookItem from "../book-item/book-item.component";
 
 import "./books-display.styles.scss";
 
-const BooksDisplay = ({ books, buttonText }) => {
-  return(
+const BooksDisplay = ({ books, buttonText, action }) => {
+  return (
     <div className="container">
       <div className="card-list">
         {books.map(book => (
-          <BookItem key={book.id} {...book} buttonText={buttonText} />
+          <BookItem
+            key={book.id}
+            book={book}
+            buttonText={buttonText}
+            action={action}
+          />
         ))}
       </div>
     </div>
   );
-}
+};
 
 export default BooksDisplay;

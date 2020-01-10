@@ -6,12 +6,19 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import SearchPage from "../../pages/search/search.component.jsx";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { updateItem } from "../../redux/books/books.actions";
+import {
+  selectPending,
+  selectReading,
+  selectCompleted
+} from "../../redux/books/books.selectors";
+import BooksDisplay from "../books-display/books-display.component";
 import "./tab-panel.styles.scss";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <Typography
       component="div"
@@ -46,14 +53,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function NavTabs() {
+const NavTabs = ({ pending, reading, completed, updateItem }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   return (
     <div className="tab-main">
       <Paper className={classes.root}>
@@ -70,14 +76,34 @@ export default function NavTabs() {
         </Tabs>
       </Paper>
       <TabPanel value={value} index={0}>
-        WHISHLIST
+        <BooksDisplay
+          books={pending}
+          buttonText="Start Reading"
+          action={updateItem}
+        />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        READING
+        <BooksDisplay
+          books={reading}
+          buttonText="COMPLETED"
+          action={updateItem}
+        />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        COMPLETED
+        <BooksDisplay books={completed} />
       </TabPanel>
     </div>
   );
-}
+};
+
+const mapStateToProps = createStructuredSelector({
+  pending: selectPending,
+  reading: selectReading,
+  completed: selectCompleted
+});
+
+const mapDispatchToProps = dispatch => ({
+  updateItem: item => dispatch(updateItem(item))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavTabs);
