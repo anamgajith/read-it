@@ -16,7 +16,7 @@ class App extends React.Component {
   unSubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser} = this.props;
 
     this.unSubscribeFromAuth = auth.onAuthStateChanged(user => {
       setCurrentUser(user);
@@ -42,7 +42,7 @@ class App extends React.Component {
             exact
             path="/search"
             render={() =>
-              this.props.currentUser ? <SearchPage /> : <DashBoard/>
+              this.props.currentUser ? <SearchPage /> : <DashBoard />
             }
           />
           <Route

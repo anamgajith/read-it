@@ -4,14 +4,15 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/firebase.utils";
-
+import { connect } from "react-redux";
+import { setUserName } from "../../redux/user/user.action";
 import LockIcon from "../../components/auth-head/lock-icon.component";
 
 import "./signup.styles.scss";
 
-export default class SignUp extends React.Component {
-  constructor() {
-    super();
+class SignUp extends React.Component {
+  constructor(props) {
+    super(props);
 
     this.state = {
       name: "",
@@ -31,7 +32,7 @@ export default class SignUp extends React.Component {
     const { name, email, password, confirmPassword } = this.state;
 
     if (password !== confirmPassword) {
-      this.setState({passworderror: "Password does not match"});
+      this.setState({ passworderror: "Password does not match" });
       return;
     }
     if (name === "") {
@@ -41,6 +42,7 @@ export default class SignUp extends React.Component {
 
     try {
       await auth.createUserWithEmailAndPassword(email, password);
+      this.props.setUserName(name);
       this.setState({
         displayName: "",
         email: "",
@@ -162,3 +164,9 @@ export default class SignUp extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  setUserName: name => dispatch(setUserName(name))
+});
+
+export default connect(null, mapDispatchToProps)(SignUp);
