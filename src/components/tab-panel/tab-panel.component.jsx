@@ -80,6 +80,7 @@ const NavTabs = ({ pending, reading, completed, updateItem }) => {
           books={pending}
           buttonText="Start Reading"
           action={updateItem}
+          enableAdd={true}
         />
       </TabPanel>
       <TabPanel value={value} index={1}>

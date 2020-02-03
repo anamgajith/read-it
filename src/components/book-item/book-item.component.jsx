@@ -1,8 +1,9 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import "./book-item.styles.scss";
 import Button from "@material-ui/core/Button";
 
-const BookItem = ({ book, buttonText, action }) => {
+const BookItem = ({ book, buttonText, action, history }) => {
   const { title, authors, description, thumbnail } = book;
   return (
     <div className="card-container">
@@ -15,22 +16,19 @@ const BookItem = ({ book, buttonText, action }) => {
         </p>
         <p className="title">{title}</p>
         <p className="description">{description}</p>
-        {buttonText ? (
-          <Button
-            className="button"
-            variant="outlined"
-            onClick={() => {
-              if (action) {
-                action(book);
-              }
-            }}
-          >
-            {buttonText}
-          </Button>
-        ) : null}
+        <Button
+          className="button"
+          variant="outlined"
+          onClick={() => {
+            action(book);
+            history.push("./dashboard");
+          }}
+        >
+          {buttonText}
+        </Button>
       </div>
     </div>
   );
 };
 
-export default BookItem;
+export default withRouter(BookItem);

@@ -5,6 +5,15 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 15px;
   margin: 25px 0;
+
+  .add-item{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    cursor: pointer;
+  }
 }
 
 @media only screen and (max-width: 1024px) {
