@@ -90,7 +90,11 @@ const NavTabs = ({ pending, reading, completed, updateItem }) => {
         />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <BooksDisplay books={completed} />
+        <BooksDisplay
+          books={completed}
+          buttonText="REMOVE"
+          action={updateItem}
+        />
       </TabPanel>
     </div>
   );

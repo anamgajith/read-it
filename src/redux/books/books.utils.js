@@ -18,6 +18,8 @@ export const updateItem = (books, bookToUpdate) => {
     case "reading":
       newStatus = "completed";
       break;
+    case "completed":
+      return books.filter(book => book.id != bookToUpdate.id);
   }
 
   return books.map(book =>
