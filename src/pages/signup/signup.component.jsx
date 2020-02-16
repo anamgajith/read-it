@@ -4,8 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/firebase.utils";
-import { connect } from "react-redux";
-import { setUserName } from "../../redux/user/user.action";
+import { withRouter } from "react-router-dom";
 import LockIcon from "../../components/auth-head/lock-icon.component";
 
 import "./signup.styles.scss";
@@ -41,8 +40,22 @@ class SignUp extends React.Component {
     }
 
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
-      this.props.setUserName(name);
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then(userCredentials => {
+          if (userCredentials.user) {
+            userCredentials.user
+              .updateProfile({
+                displayName: name
+              })
+              .then(s => {
+                this.props.history.push("./dashboard");
+              });
+          }
+        })
+        .catch(function(error) {
+          console.error(error);
+        });
       this.setState({
         displayName: "",
         email: "",
@@ -165,8 +178,4 @@ class SignUp extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  setUserName: name => dispatch(setUserName(name))
-});
-
-export default connect(null, mapDispatchToProps)(SignUp);
+export default withRouter(SignUp);

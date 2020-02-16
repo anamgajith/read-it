@@ -9,3 +9,8 @@ export const updateItem = item => ({
   type: BooksActionTypes.UPDATE_ITEM,
   payload: item
 });
+
+export const setBooks = books => ({
+  type: BooksActionTypes.SET_BOOKS,
+  payload: books
+});

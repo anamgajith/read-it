@@ -1,4 +1,5 @@
 import React from "react";
+import HomePage from './pages/home/home.component';
 import DashBoard from "./pages/dashboard/dashboard.component";
 import SearchPage from "./pages/search/search.component";
 import SignIn from "./pages/signin/signin.component";
@@ -8,6 +9,8 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { auth } from "./firebase/firebase.utils";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.action";
+import { setBooks } from "./redux/books/books.actions";
+import { addUser, getBooks } from "./api/api.utils";
 import { selectCurrentUser } from "./redux/user/user.selector";
 import { createStructuredSelector } from "reselect";
 import "./App.css";
@@ -16,9 +19,17 @@ class App extends React.Component {
   unSubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser} = this.props;
+    const { setCurrentUser,setBooks } = this.props;
 
-    this.unSubscribeFromAuth = auth.onAuthStateChanged(user => {
+    this.unSubscribeFromAuth = auth.onAuthStateChanged(async user => {
+      if (user) {
+        await addUser(user);
+        const books = await getBooks(user);
+        setBooks(books);
+      }
+      if(!user){
+        setBooks([]);
+      }
       setCurrentUser(user);
     });
   }
@@ -31,6 +42,7 @@ class App extends React.Component {
       <div>
         <Header />
         <Switch>
+          <Route exact path='/' render={() => (<HomePage/>)}/>
           <Route
             exact
             path="/dashboard"
@@ -70,7 +82,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
+  setBooks: books => dispatch(setBooks(books))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

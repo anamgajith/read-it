@@ -17,6 +17,13 @@ const booksReducer = (state = INITIAL_VALUE, action) => {
         ...state,
         books: updateItem(state.books, action.payload)
       };
+
+    case BooksActionsTypes.SET_BOOKS:
+      return {
+        ...state,
+        books: action.payload
+      };
+
     default:
       return state;
   }

@@ -2,7 +2,7 @@ import { createSelector } from "reselect";
 
 const selectBooksState = state => state.books;
 
-const selectBooks = createSelector([selectBooksState], books => books.books);
+export const selectBooks = createSelector([selectBooksState], books => books.books);
 
 export const selectPending = createSelector([selectBooks], books =>
   books.filter(book => book.status === "pending")
