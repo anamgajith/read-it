@@ -3,6 +3,7 @@ import "./signin.styles.scss";
 import TextField from "@material-ui/core/TextField";
 import GoogleButton from "react-google-button";
 import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
@@ -18,7 +19,8 @@ export default class SignIn extends React.Component {
       password: "",
       error: "",
       emailerror: "",
-      passworderror: ""
+      passworderror: "",
+      visibility: "hidden"
     };
   }
 
@@ -43,7 +45,7 @@ export default class SignIn extends React.Component {
 
     try {
       await auth.signInWithEmailAndPassword(email, password);
-      this.setState({ email: "", password: "" });
+      this.setState({ visibility:"visible",email: "", password: "" });
     } catch (error) {
       switch (error.code) {
         case "auth/user-not-found":
@@ -67,10 +69,21 @@ export default class SignIn extends React.Component {
   };
 
   render() {
-    const { email, password, error, emailerror, passworderror } = this.state;
+    const {
+      email,
+      password,
+      error,
+      emailerror,
+      passworderror,
+      visibility
+    } = this.state;
     return (
       <div className="main-signin">
         <form className="signin-container">
+          <CircularProgress
+            style={{ visibility: `${visibility}` }}
+            className="progrss-loader"
+          />
           <LockIcon />
           <Typography className="signin-text" component="h1" variant="h5">
             Sign in

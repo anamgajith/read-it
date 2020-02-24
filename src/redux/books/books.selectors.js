@@ -2,7 +2,15 @@ import { createSelector } from "reselect";
 
 const selectBooksState = state => state.books;
 
-export const selectBooks = createSelector([selectBooksState], books => books.books);
+export const selectFetch = createSelector(
+  [selectBooksState],
+  books => books.firstFetch
+);
+
+export const selectBooks = createSelector(
+  [selectBooksState],
+  books => books.books
+);
 
 export const selectPending = createSelector([selectBooks], books =>
   books.filter(book => book.status === "pending")

@@ -1,7 +1,8 @@
 import BooksActionsTypes from "./books.types";
 import { addItem, updateItem } from "./books.utils";
 const INITIAL_VALUE = {
-  books: []
+  books: [],
+  firstFetch: false
 };
 
 const booksReducer = (state = INITIAL_VALUE, action) => {
@@ -22,6 +23,12 @@ const booksReducer = (state = INITIAL_VALUE, action) => {
       return {
         ...state,
         books: action.payload
+      };
+
+    case BooksActionsTypes.SET_FETCH:
+      return {
+        ...state,
+        firstFetch: action.payload
       };
 
     default:

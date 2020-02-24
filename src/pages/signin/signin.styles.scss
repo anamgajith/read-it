@@ -5,24 +5,29 @@
   padding: 10px;
   margin: 5px auto;
 
-  .signin-container {
+  & .signin-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100% !important;
+
+    & .progrss-loader {
+      position: absolute;
+      margin-top: 150px;
+    }
   }
 
-  .signin-text {
+  & .signin-text {
     margin: 25px 0;
   }
 
-  .full {
+  & .full {
     width: 100% !important;
     margin: 10px 0;
   }
 }
-  .link-to {
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-  }
+.link-to {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}

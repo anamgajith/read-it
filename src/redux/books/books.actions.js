@@ -14,3 +14,8 @@ export const setBooks = books => ({
   type: BooksActionTypes.SET_BOOKS,
   payload: books
 });
+
+export const setFetch = fetch => ({
+  type: BooksActionTypes.SET_FETCH,
+  payload: fetch
+})

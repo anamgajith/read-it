@@ -1,5 +1,5 @@
 import React from "react";
-import HomePage from './pages/home/home.component';
+import HomePage from "./pages/home/home.component";
 import DashBoard from "./pages/dashboard/dashboard.component";
 import SearchPage from "./pages/search/search.component";
 import SignIn from "./pages/signin/signin.component";
@@ -9,7 +9,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { auth } from "./firebase/firebase.utils";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.action";
-import { setBooks } from "./redux/books/books.actions";
+import { setBooks, setFetch } from "./redux/books/books.actions";
 import { addUser, getBooks } from "./api/api.utils";
 import { selectCurrentUser } from "./redux/user/user.selector";
 import { createStructuredSelector } from "reselect";
@@ -19,7 +19,7 @@ class App extends React.Component {
   unSubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser,setBooks } = this.props;
+    const { setCurrentUser, setBooks, setFetch } = this.props;
 
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async user => {
       if (user) {
@@ -27,8 +27,8 @@ class App extends React.Component {
         const books = await getBooks(user);
         setBooks(books);
       }
-      if(!user){
-        setBooks([]);
+      if (!user) {
+        setFetch(false);
       }
       setCurrentUser(user);
     });
@@ -42,7 +42,7 @@ class App extends React.Component {
       <div>
         <Header />
         <Switch>
-          <Route exact path='/' render={() => (<HomePage/>)}/>
+          <Route exact path="/" render={() => <HomePage />} />
           <Route
             exact
             path="/dashboard"
@@ -83,7 +83,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user)),
-  setBooks: books => dispatch(setBooks(books))
+  setBooks: books => dispatch(setBooks(books)),
+  setFetch: fetch => dispatch(setFetch(fetch))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

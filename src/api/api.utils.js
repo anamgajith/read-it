@@ -1,5 +1,3 @@
-import { setUserName } from "../redux/user/user.action";
-
 const baseUrl = "http://localhost:8086/api";
 
 export const addUser = async user => {

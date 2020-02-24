@@ -2,6 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { Link } from "react-router-dom";
 import { auth } from "../../firebase/firebase.utils";
 import { withRouter } from "react-router-dom";
@@ -21,7 +22,8 @@ class SignUp extends React.Component {
       error: "",
       emailerror: "",
       passworderror: "",
-      nameerror: ""
+      nameerror: "",
+      visibility: "hidden"
     };
   }
 
@@ -57,6 +59,7 @@ class SignUp extends React.Component {
           console.error(error);
         });
       this.setState({
+        visibility: "visible",
         displayName: "",
         email: "",
         password: "",
@@ -103,11 +106,16 @@ class SignUp extends React.Component {
       passworderror,
       emailerror,
       error,
-      nameerror
+      nameerror,
+      visibility
     } = this.state;
     return (
       <div className="main-signin">
         <form className="signin-container">
+          <CircularProgress
+            style={{ visibility: `${visibility}` }}
+            className="progrss-loader"
+          />
           <LockIcon />
           <Typography className="signin-text" component="h1" variant="h5">
             Sign Up
