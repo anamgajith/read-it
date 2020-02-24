@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:8086/api";
+const baseUrl = "https://read-it-api.herokuapp.com/api";
 
 export const addUser = async user => {
   await fetch(`${baseUrl}/${user.uid}/update`, {
